@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+    <title>DBP</title>
+  <style>
+    .tachar {
+      text-decoration: line-through;
+    }
+  </style>
+  <script>
+    function tachar(index) {
+      var taskElement = document.getElementById('todoList').getElementsByTagName('li')[index];
+      if (taskElement) {
+        taskElement.classList.toggle('tachar');
+      }
+    }
+  
+    function añadir() {
+      var todoList = document.getElementById('todoList');
+      var newTaskInput = document.getElementById('newTask');
+      var newTask = newTaskInput.value;
+      if (newTask) {
+        var li = document.createElement('li');
+        li.innerHTML = '<input type="checkbox" onclick="tachar(' + todoList.children.length + ')"> ' + newTask +
+          ' <button class="deleteBtn" onclick="borrar(' + todoList.children.length + ')"> x </button>';
+        todoList.appendChild(li);
+        newTaskInput.value = '';
+      }
+    }
+  
+    function borrar(index) {
+      var todoList = document.getElementById('todoList');
+      var taskToRemove = todoList.getElementsByTagName('li')[index];
+      if (taskToRemove) {
+        todoList.removeChild(taskToRemove);
+      }
+    }
+  
+    function marcar() {
+      var checkboxes = document.querySelectorAll('#todoList input[type="checkbox"]');
+      checkboxes.forEach(function(checkbox) {
+        checkbox.checked = true;
+        tachar(checkbox.parentNode);
+      });
+    }
+    
+  </script>
+</head>
+<body>
+
+  <p>Computer Science</p>
+<h1>Tasks</h1>
+<input type="text" id="newTask">
+<button onclick="añadir()">Add Todo</button> <br> <br>
+<button onclick="marcar()">Complete All</button>
+
+<ul id="todoList"></ul>
+
+</body>
+</html>
